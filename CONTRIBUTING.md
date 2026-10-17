@@ -44,12 +44,6 @@ git checkout -b my-new-branch
 ./gradlew apps:social:hotRunJvm --auto
 ```
 
-## Running the CLI locally
-
-```bash
-./gradlew :packages:cli:run --args="--help"
-```
-
 ## Testing
 
 Before opening a pull request, run `./gradlew test` to run all tests locally.

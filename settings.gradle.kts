@@ -1,7 +1,3 @@
-import org.apache.tools.ant.DirectoryScanner
-
-DirectoryScanner.removeDefaultExclude("**/.gitignore")
-
 pluginManagement {
   includeBuild("devtools/gradle-plugin")
 
@@ -53,8 +49,6 @@ include(":preview")
 include(":preview-insets")
 
 include(":apps:social")
-
-include(":packages:cli")
 
 include(":devtools:runtime")
 

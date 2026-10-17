@@ -9,17 +9,8 @@ export async function readUiPackageVersion() {
   return uiPackageJson.version;
 }
 
-export async function readCliPackageVersion() {
-  const cliPackageJson = await readJsonFile("packages/cli/package.json");
-  return cliPackageJson.version;
-}
-
 export async function readGradleUiVersion() {
   return readGradleVersion("ui");
-}
-
-export async function readGradleCliVersion() {
-  return readGradleVersion("composables-cli");
 }
 
 async function readGradleVersion(name) {

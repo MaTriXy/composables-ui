@@ -3,15 +3,6 @@ import { readJsonFile } from "./release-versions.mjs";
 
 const packages = [
   {
-    name: "composables-cli",
-    type: "npm",
-    versionFile: "packages/cli/package.json",
-    publishCommands: [
-      "./gradlew :packages:cli:assembleNpmPackage --no-configuration-cache",
-      "npm publish packages/cli/build/npm/package --access public --dry-run",
-    ],
-  },
-  {
     name: "@composables/ui",
     type: "maven",
     versionFile: "packages/ui/package.json",

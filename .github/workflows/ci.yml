@@ -24,4 +24,4 @@ jobs:
 
       - name: Run formatting and JVM tests
         shell: bash
-        run: xvfb-run --auto-servernum ./gradlew --console=plain spotlessCheck jvmTest :packages:cli:test --no-daemon
+        run: xvfb-run --auto-servernum ./gradlew --console=plain spotlessCheck jvmTest --no-daemon

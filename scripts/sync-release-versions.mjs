@@ -1,13 +1,11 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { readCliPackageVersion, readUiPackageVersion } from "./release-versions.mjs";
+import { readUiPackageVersion } from "./release-versions.mjs";
 
 const versionCatalogPath = new URL("../gradle/libs.versions.toml", import.meta.url);
 const uiPackageVersion = await readUiPackageVersion();
-const cliPackageVersion = await readCliPackageVersion();
 const versionCatalog = await readFile(versionCatalogPath, "utf8");
 const versions = [
   ["ui", uiPackageVersion],
-  ["composables-cli", cliPackageVersion],
 ];
 
 let nextVersionCatalog = versionCatalog;

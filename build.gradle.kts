@@ -3,9 +3,6 @@ plugins {
   alias(libs.plugins.kotlin.serialization) apply false
   alias(libs.plugins.compose) apply false
   alias(libs.plugins.compose.compiler) apply false
-  alias(libs.plugins.jvm) apply false
-  alias(libs.plugins.shadow) apply false
-  alias(libs.plugins.buildconfig) apply false
   alias(libs.plugins.android.kotlin.multiplatform.library) apply false
   alias(libs.plugins.android.application) apply false
   alias(libs.plugins.maven.publish) apply false
@@ -20,8 +17,6 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
 }
 
 subprojects {
-  if (path == ":packages" || path == ":packages:cli") return@subprojects
-
   apply(plugin = rootProject.libs.plugins.spotless.get().pluginId)
 
   configure<com.diffplug.gradle.spotless.SpotlessExtension> {

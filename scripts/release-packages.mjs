@@ -1,21 +1,11 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { execFileSync, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { readJsonFile } from "./release-versions.mjs";
 
 const dryRun = process.argv.includes("--dry-run");
 const releaseOutputFile = new URL("../build/release/published-packages.json", import.meta.url);
 
 const packages = [
-  {
-    name: "composables-cli",
-    releaseName: "composables-cli",
-    type: "npm",
-    versionFile: "packages/cli/package.json",
-    publishCommands: [
-      ["./gradlew", [":packages:cli:assembleNpmPackage", "--no-configuration-cache"]],
-      ["npm", ["publish", "packages/cli/build/npm/package", "--access", "public", "--provenance"]],
-    ],
-  },
   {
     name: "@composables/ui",
     releaseName: "composables-ui",
@@ -25,18 +15,6 @@ const packages = [
     publishCommands: [["./gradlew", [":ui:publishAndReleaseToMavenCentral", "--no-configuration-cache"]]],
   },
 ];
-
-async function npmPackageExists(name, version) {
-  try {
-    execFileSync("npm", ["view", `${name}@${version}`, "version", "--json"], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 async function mavenPackageExists(url) {
   const response = await fetch(url, { method: "HEAD" });
@@ -61,10 +39,7 @@ for (const releasePackage of packages) {
   const packageJson = await readJsonFile(releasePackage.versionFile);
   const version = packageJson.version;
   const tagName = `${releasePackage.releaseName}@${version}`;
-  const alreadyPublished =
-    releasePackage.type === "npm"
-      ? await npmPackageExists(releasePackage.name, version)
-      : await mavenPackageExists(releasePackage.mavenPomUrl(version));
+  const alreadyPublished = await mavenPackageExists(releasePackage.mavenPomUrl(version));
 
   if (alreadyPublished) {
     console.log(`${releasePackage.name}@${version} is already published. Skipping.`);

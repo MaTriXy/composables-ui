@@ -2,7 +2,7 @@
   "name": "composables-ui-monorepo",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/ui"
   ],
   "scripts": {
     "changeset:version": "npx --package @changesets/cli --package @changesets/changelog-github changeset version && node scripts/sync-release-versions.mjs",
